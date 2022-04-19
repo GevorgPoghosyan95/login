@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Covid19</title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,700" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 97vh;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: bold;
+      color: #00000;
+    }
+
+    .main-container {
+      background: #F8F8F8;
+      border-radius: 5px;
+      padding: 20px 0;
+    }
+
+    .logo-container {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .message-container {
+      max-width: 650px;
+      margin: 10px auto;
+    }
+
+    .message-container-text {
+
+      text-align: center;
+
+    }
+
+    .message {
+      font-size: 24px;
+      line-height: 1.5;
+    }
+
+    .button {
+      margin: 20px auto;
+      text-align: center;
+      /*line-height: 2.5;*/
+      width: 160px;
+      height: 40px;
+      background-color: rgb(85, 116, 247);
+      color: #fff;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    .button-text {
+      padding-top: 9px;
+    }
+
+    .text-decoration {
+      text-decoration: none;
+      margin: 20px auto;
+      width: 130px;
+      height: 40px;
+    }
+
+    .warning-msg {
+      font-size: 18px;
+      text-align: center
+    }
+
+    .contact-info {
+      width: 90%;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+<div class='main-container'>
+  <div class='message-container'>
+    <div class="message-container-text message">
+        To Verify your email click on button bellow
+    </div>
+  </div>
+  <div class='button-container'>
+    <a class='text-decoration' href='{{confirmationUrl}}'>
+      <div class='button'>
+        <p class = 'button-text'>
+        Confirm
+        </p>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
+
