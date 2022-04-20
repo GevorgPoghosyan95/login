@@ -10,7 +10,8 @@ const ERRORS_NAME = [
     'InvalidPasswordError',
     'MicroserviceError',
     'UnauthorizedError',
-    'ResourceNotFoundError'
+    'ResourceNotFoundError',
+    'UniqueViolationError'
 ];
 
 const ErrorsUtil = ERRORS_NAME.reduce((acc, className) => {

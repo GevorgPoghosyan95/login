@@ -11,6 +11,7 @@ export default class ErrorHandlerMiddleware {
    * @description Initialize error handler.
    */
   static init(error, request, response, next) {
+
     const ERROR_CASE = ErrorHandlerMiddleware.ERROR_CASES[error.status]
       || ErrorHandlerMiddleware.ERROR_CASES[error.code]
       || ErrorHandlerMiddleware.ERROR_CASES[error.name]
@@ -42,6 +43,11 @@ ErrorHandlerMiddleware.ERROR_CASES = {
   400: { // microservice, error status is used
     status: HttpStatusCodesUtil.BAD_REQUEST,
     code: http.STATUS_CODES[HttpStatusCodesUtil.BAD_REQUEST]
+  },
+  UniqueViolationError:{
+    status: HttpStatusCodesUtil.BAD_REQUEST,
+    code: http.STATUS_CODES[HttpStatusCodesUtil.BAD_REQUEST],
+    message:'Duplicate entries!'
   },
   ExpiredTokenConfirmError: {
     status: HttpStatusCodesUtil.BAD_REQUEST,
