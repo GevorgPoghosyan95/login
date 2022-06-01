@@ -26,7 +26,7 @@ class App {
     /**
      * @description Initialize the App.
      */
-    async init() {
+    async _init() {
         await App._initializeStorage();
         this._setRequestLogger();
         this._initCookieParser();

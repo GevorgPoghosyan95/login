@@ -1,4 +1,4 @@
-const config = require('../../knexfile')['development']
+const config = require('../../knexfile')[process.env.ENV]
 import Knex from 'knex'
 import { Model } from 'objection';
 

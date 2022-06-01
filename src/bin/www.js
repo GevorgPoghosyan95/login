@@ -15,7 +15,7 @@ import { name } from '../../package.json';
 const { PORT } = config;
 
 const init = async () => {
-  App.init();
+  await App._init();
   const server = http.createServer(App.app);
 
   const _onError = (error) => {
