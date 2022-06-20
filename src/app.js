@@ -9,7 +9,10 @@ import config from './config/variables.config';
 import MongodbStorage from './storage/mongodb.storage';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
+import PassportApi from './passport/google/api'
 import PostgresStorage from "./storage/postgres.storage";
+import session from "express-session";
+import app from "./passport/google/api";
 
 const {CORS, DISABLE_REQUEST_LOG, MONGODB} = config;
 
@@ -33,6 +36,7 @@ class App {
         this._setCors();
         this._setRequestParser();
         this._initializeApi();
+        this._initializePassport();
         this._setErrorHandler();
     }
 
@@ -105,6 +109,11 @@ class App {
      */
     _setErrorHandler() {
         this.app.use(ErrorHandlerMiddleware.init);
+    }
+
+
+    _initializePassport() {
+        this.app.use('/',PassportApi)
     }
 }
 
