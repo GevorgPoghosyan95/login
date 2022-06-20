@@ -23,11 +23,11 @@ const UsersSchema = {
     },
 
     resetPasswordSchema: {
-        body: Joi.object({
+        query: Joi.object({
             key: Joi.string().required(),
-            expiryDate: Joi.number().required(),
+            expiryDate: Joi.number().unsafe().required(),
             email: Joi.string().email().required(),
-            password: Joi.string().min(8).required()
+           // password: Joi.string().min(8).required()
         })
     },
 

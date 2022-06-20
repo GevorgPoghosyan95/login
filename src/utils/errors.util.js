@@ -15,17 +15,14 @@ const ERRORS_NAME = [
 ];
 
 const ErrorsUtil = ERRORS_NAME.reduce((acc, className) => {
-    acc[className] = ({
-        [className]: class extends Error {
+    acc[className] = (class extends Error {
             constructor(msg, status) {
                 super();
                 this.message = msg;
                 this.status = status;
                 this.name = className;
             }
-        }
     });
-
     return acc;
 }, {});
 export default ErrorsUtil;

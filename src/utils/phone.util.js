@@ -23,14 +23,13 @@ export default class PhoneUtil {
         const client = require('twilio')(accountSid, authToken);
         const otp = this.generateOTP();
         try {
-            client.messages
+           client.messages
                 .create({
                     body: otp,
-                    messagingServiceSid: 'MGdf1bbdd29308cf40823d277a03b2e504',
+                    messagingServiceSid: 'MGa4057748820afc8e9ff6d31cee58d5ef',
                     to: phone
                 })
                 .then(message => console.log(message.sid))
-                .done();
         } catch (e) {
             throw new Error(e.message);
         }

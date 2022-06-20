@@ -17,9 +17,14 @@ const {
 } = EMAIL;
 
 const mailer = nodemailer.createTransport({
-  service: SERVICE,
-  auth: { user: USERNAME, pass: PASSWORD }
-});
+  host: "smtp.mail.ru",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: USERNAME, // generated ethereal user
+    pass: PASSWORD // generated ethereal password
+  }
+})
 
 export default class EMailUtil {
   static async sendHtml(from, to, subject, html) {
@@ -32,7 +37,7 @@ export default class EMailUtil {
   static async sendForgotPasswordViaGmail(email, expiryDate, key) {
     // console.log({ email, expiryDate, key });
     const query = queryString.stringify({ email, expiryDate, key });
-    const confirmationUrl = `${WEBSITE_HOST}${ENDPOINTS.FORGOT_PASSWORD}?${query}`;
+    const confirmationUrl = `${WEBSITE_HOST}/users/${ENDPOINTS.RESET_PASSWORD}?${query}`;
     try {
       const html = fs.readFileSync(TEMPLATES.FORGOT_PASSWORD, { encoding: 'utf-8' });
       const template = handlebars.compile(html);
@@ -55,5 +60,9 @@ export default class EMailUtil {
     } catch (error) {
       throw new Error(error.message);
     }
+  }
+
+  static async sendPassword(email,password){
+    await EMailUtil.sendHtml(USERNAME, email, 'Email Confirmation',  `<p>Your temporary password - ${password}</p>`);
   }
 }
