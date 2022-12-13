@@ -9,7 +9,6 @@ import config from './config/variables.config';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
 
-import PassportApi from './passport/google/api';
 import PostgresStorage from './storage/postgres.storage';
 
 const { CORS, DISABLE_REQUEST_LOG } = config;
@@ -35,17 +34,6 @@ class App {
     this._setCors();
     this._setRequestParser();
     this._initializeApi();
-    this._setErrorHandler();
-  }
-
-  async _init() {
-    await App._initializeStorage();
-    this._setRequestLogger();
-    this._initCookieParser();
-    this._setCors();
-    this._setRequestParser();
-    this._initializeApi();
-    this._initializePassport();
     this._setErrorHandler();
   }
 
@@ -119,7 +107,7 @@ class App {
   }
 
   _initializePassport() {
-    this.app.use('/', PassportApi);
+   // this.app.use('/', PassportApi);
   }
 }
 
