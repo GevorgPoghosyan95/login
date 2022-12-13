@@ -3,7 +3,6 @@ import http from 'http';
 import 'dotenv/config';
 import 'regenerator-runtime';
 
-
 // Modules from this project
 import { LoggerUtil } from '../utils';
 import App from '../app';
@@ -14,10 +13,19 @@ import { name } from '../../package.json';
 
 const { PORT } = config;
 
+const { exec } = require('child_process');
+
+function execute(command, callback) {
+  exec(command, (error, stdout) => { callback(stdout); });
+}
+
 const init = async () => {
   await App._init();
   const server = http.createServer(App.app);
 
+  execute('knex migrate:latest', (stdout) => {
+    console.log(stdout);
+  });
   const _onError = (error) => {
     LoggerUtil.error(error.message);
   };

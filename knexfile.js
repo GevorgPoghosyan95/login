@@ -3,13 +3,14 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+
 module.exports = {
   development: {
     client: 'postgresql',
     connection: {
       database: process.env.DATABASE,
-      user:      process.env.DB_USER,
-      password:  process.env.DB_PASSWORD
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
@@ -28,7 +29,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'my_db',
-      user:     'username',
+      user: 'username',
       password: 'password'
     },
     pool: {
