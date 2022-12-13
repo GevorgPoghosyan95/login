@@ -6,12 +6,13 @@ import morgan from 'morgan';
 
 // Local modules
 import config from './config/variables.config';
-import MongodbStorage from './storage/mongodb.storage';
 import ErrorHandlerMiddleware from './middlewares/error-handler.middleware';
 import Api from './api';
+
+import PassportApi from './passport/google/api';
 import PostgresStorage from './storage/postgres.storage';
 
-const { CORS, DISABLE_REQUEST_LOG, MONGODB } = config;
+const { CORS, DISABLE_REQUEST_LOG } = config;
 
 const cookieParser = require('cookie-parser');
 
@@ -26,6 +27,7 @@ class App {
   /**
      * @description Initialize the App.
      */
+
   async _init() {
     await App._initializeStorage();
     this._setRequestLogger();
@@ -33,6 +35,17 @@ class App {
     this._setCors();
     this._setRequestParser();
     this._initializeApi();
+    this._setErrorHandler();
+  }
+
+  async _init() {
+    await App._initializeStorage();
+    this._setRequestLogger();
+    this._initCookieParser();
+    this._setCors();
+    this._setRequestParser();
+    this._initializeApi();
+    this._initializePassport();
     this._setErrorHandler();
   }
 
@@ -78,8 +91,6 @@ class App {
      */
   _setRequestParser() {
     this.app.use(bodyParser.json());
-    const options = { limit: '200mb', extended: false };
-    this.app.use(bodyParser.urlencoded(options));
   }
 
   /**
@@ -105,6 +116,10 @@ class App {
      */
   _setErrorHandler() {
     this.app.use(ErrorHandlerMiddleware.init);
+  }
+
+  _initializePassport() {
+    this.app.use('/', PassportApi);
   }
 }
 

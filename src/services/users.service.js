@@ -7,8 +7,13 @@ import {
 const {EMAIL, ONE_WAY_HASH_SECRET} = config;
 
 const {
-    InputValidationError, ResourceNotFoundError, ExpiredTokenConfirmError, InvalidEmailConfirmError,InvalidOtpConfirmError
+    InputValidationError,
+    ResourceNotFoundError,
+    ExpiredTokenConfirmError,
+    InvalidEmailConfirmError,
+    InvalidOtpConfirmError
 } = ErrorsUtil;
+
 
 export default class UsersService {
     static async signup(payload) {
@@ -42,7 +47,9 @@ export default class UsersService {
 
     static async verifyPhone(otp, id) {
         const user = await UsersModel.getByParams({id})
+        if (!user) throw new ResourceNotFoundError('User not found');
         if (user.otp_code !== otp) throw new InvalidOtpConfirmError('Invalid otp.');
+        if (user.verified) throw new InputValidationError('Already verified!')
         const update = {verified: true};
         return UsersModel.update({id}, update);
     }
@@ -56,13 +63,14 @@ export default class UsersService {
         return UsersModel.update({id: currentUserId}, update);
     }
 
-    static async resetPassword(email, key, expiryDate, password) {
+    static async resetPassword(email, key, expiryDate) {
         if (expiryDate < Date.now()) throw new ExpiredTokenConfirmError('Expired key is specified.');
 
         const oneWayHash = new OneWayHashUtil(ONE_WAY_HASH_SECRET);
         const _key = oneWayHash.registrationConfirmationHash(email, expiryDate);
         if (key !== _key) throw new InvalidEmailConfirmError('Invalid key is specified.');
-
+        const password = CryptoUtil.createPassword(10)
+        await EMailUtil.sendPassword(email, password);
         const update = {password: CryptoUtil.createHash(password)};
         return UsersModel.update({email}, update);
     }

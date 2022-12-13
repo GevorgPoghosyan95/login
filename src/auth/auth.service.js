@@ -75,20 +75,23 @@ export default class AuthService {
     if (!CryptoUtil.isValidPassword(password, user.password)) {
       throw new UnauthorizedError('Invalid password');
     }
-
-    const { id: userId, role } = user;
-    const { accessToken, refreshToken } = AuthService.generateTokens({ email, userId, role });
-
-    const accessTokenExpiresAt = formatDate(new Date(new Date().getTime() + parse(ACCESS_TOKEN_ACTIVE_TIME)));
-    const refreshTokenExpiresAt = formatDate(new Date(new Date().getTime() + parse(REFRESH_TOKEN_ACTIVE_TIME)));
-    const scope = `access:${role}`;
-    const payload = {
-      accessToken, refreshToken, userId, scope, accessTokenExpiresAt, refreshTokenExpiresAt
-    };
-    const auth = await AuthModel.getByParams({userId})
-    const result = auth ?  await AuthModel.update({userId},payload) : AuthModel.create(payload)
-    return result;
-
+    return await this.generateToken(user);
   }
+
+
+   static async generateToken(user){
+     const { id: userId, role,email } = user;
+     const { accessToken, refreshToken } = AuthService.generateTokens({ email, userId, role });
+
+     const accessTokenExpiresAt = formatDate(new Date(new Date().getTime() + parse(ACCESS_TOKEN_ACTIVE_TIME)));
+     const refreshTokenExpiresAt = formatDate(new Date(new Date().getTime() + parse(REFRESH_TOKEN_ACTIVE_TIME)));
+     const scope = `access:${role}`;
+     const payload = {
+       accessToken, refreshToken, userId, scope, accessTokenExpiresAt, refreshTokenExpiresAt
+     };
+     const auth = await AuthModel.getByParams({userId})
+     const result = auth ?  await AuthModel.update({userId},payload) : AuthModel.create(payload)
+     return result;
+   }
 
 }

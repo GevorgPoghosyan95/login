@@ -24,9 +24,10 @@ router.post('/forgot-password',
   UsersValidationMiddleware.validateForgotPasswordArgs,
   UsersController.forgotPassword);
 
-router.post('/reset-password',
-  UsersValidationMiddleware.validateResetPasswordArgs,
-  UsersController.resetPassword);
+
+router.get('/reset-password',
+    UsersValidationMiddleware.validateResetPasswordArgs,
+    UsersController.resetPassword);
 
 router.put('/change-password',
   AuthMiddleware.authenticate,

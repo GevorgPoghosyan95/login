@@ -25,9 +25,9 @@ export default class UsersController {
   static async resetPassword(req, res, next) {
     try {
       const {
-        email, key, expiryDate, password
-      } = req.body;
-      await UsersService.resetPassword(email, key, expiryDate, password);
+        email, key, expiryDate
+      } = req.query;
+      await UsersService.resetPassword(email, key, expiryDate);
       SuccessHandlerUtil.handleAdd(res, next, { success: true });
     } catch (error) {
       next(error);
@@ -69,9 +69,9 @@ export default class UsersController {
     try {
       const { otp,id } = req.body;
       await UsersService.verifyPhone(otp,id);
-      SuccessHandlerUtil.handleAdd(res, next, { success: true });
+      SuccessHandlerUtil.handleAdd(res, next, { success: true,message:`User verified successfully!` });
     } catch (error) {
-      next(error);
+        next(error);
     }
   }
 }

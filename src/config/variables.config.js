@@ -17,13 +17,14 @@ const config = {
   },
 
   EMAIL: {
-    WEBSITE_HOST: process.env.EMAIL_WEBSITE_HOST || 'http://localhost:3040',
+    WEBSITE_HOST: process.env.EMAIL_WEBSITE_HOST || 'http://localhost:5001',
     SERVICE: process.env.EMAIL_SERVICE || 'gmail',
     USERNAME: process.env.EMAIL_USERNAME || 'email',
     PASSWORD: process.env.EMAIL_PASSWORD || 'password',
     EXPIRE: process.env.EMAIL_EXPIRE || 60 * 60 * 1000,
     ENDPOINTS: {
-      FORGOT_PASSWORD: process.env.EMAIL_ENDPOINTS_FORGOT_PASSWORD || 'forgot_password',
+      FORGOT_PASSWORD: process.env.EMAIL_ENDPOINTS_FORGOT_PASSWORD || 'forgot-password',
+      RESET_PASSWORD:process.env.EMAIL_ENDPOINTS_RESET_PASSWORD || 'reset-password',
       SIGNUP: process.env.EMAIL_ENDPOINTS_SIGNUP || '/users/verify'
     },
     TEMPLATES: {
