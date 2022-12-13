@@ -37,10 +37,6 @@ class App {
     this._setErrorHandler();
   }
 
-  /**
-     * @private
-     * @description Init cookie
-     */
 
   _initCookieParser() {
     this.app.use(cookieParser());
