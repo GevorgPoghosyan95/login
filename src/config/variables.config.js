@@ -24,21 +24,19 @@ const config = {
     EXPIRE: process.env.EMAIL_EXPIRE || 60 * 60 * 1000,
     ENDPOINTS: {
       FORGOT_PASSWORD: process.env.EMAIL_ENDPOINTS_FORGOT_PASSWORD || 'forgot-password',
-      RESET_PASSWORD:process.env.EMAIL_ENDPOINTS_RESET_PASSWORD || 'reset-password',
+      RESET_PASSWORD: process.env.EMAIL_ENDPOINTS_RESET_PASSWORD || 'reset-password',
       SIGNUP: process.env.EMAIL_ENDPOINTS_SIGNUP || '/users/verify'
     },
     TEMPLATES: {
       FORGOT_PASSWORD: process.env.EMAIL_TEMPLATES_FORGOT_PASSWORD || 'templates/forgot_password.html',
-      SIGNUP: process.env.EMAIL_TEMPLATES_SIGNUP|| 'templates/signup.html'
+      SIGNUP: process.env.EMAIL_TEMPLATES_SIGNUP || 'templates/signup.html'
     }
   },
-  PHONE:{
-    ACCOUNT_SID:process.env.PHONE_ACCOUNT_SID,
-    AUTH_TOKEN:process.env.PHONE_AUTH_TOKEN
+  PHONE: {
+    ACCOUNT_SID: process.env.PHONE_ACCOUNT_SID,
+    AUTH_TOKEN: process.env.PHONE_AUTH_TOKEN
   }
 };
-
-
 
 // TODO validate all required configs
 // const required = {

@@ -7,8 +7,8 @@ import { AuthValidationMiddleware } from '../middlewares/validation';
 
 const router = express.Router();
 
-router.get('/',AuthMiddleware.authenticate,(req,res)=>{
-    res.json('home')
-})
+router.get('/', AuthMiddleware.authenticate, (req, res) => {
+  res.json('home');
+});
 
 export default router;
